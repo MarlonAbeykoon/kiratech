@@ -13,7 +13,7 @@ from inventory.serializers import InventorySerializer
 class InventoryListApiView(APIView):
 
     def get(self, request, *args, **kwargs):
-        inventories = Inventory.objects.all()
+        inventories = Inventory.objects.select_related('supplier').all()
         serializer = InventorySerializer(inventories, many=True)
 
         return Response({"inventories": serializer.data}, status=status.HTTP_200_OK)
