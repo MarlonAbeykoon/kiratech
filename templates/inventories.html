@@ -5,18 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-
-{#{% for i in inventory %}#}
-{#{{ i }}#}
-{#{% endfor %}#}
-
     <h1>List of inventories</h1>
-    {% for i in response %}
+      <tr>
     <strong>
+
+    <th>Name</th>
+    <th>Availability</th>
+    <th>Supplier name</th>
+            </strong>
+
+  </tr>
+    {% for i in response %}
 {#        <a href="{{ i.get_absolute_url }}">{{i.name}}</a> #}
 {#        <li><a href="api/inventory/{{ i.id }}/">{{ i.name }}</a></li>#}
-        <li><a href="{% url 'inventory-detail' i.id %}">{{ i.name }}</a></li>
-        ,</strong>
+        <table>
+  <tr>
+    <td><li><a href="{% url 'inventory-detail' i.id %}">{{ i.name }}</a></li></td>
+    <td>{{ i.availability }}</td>
+    <td>{{ i.supplier.name }}</td>
+  </tr>
+</table>
+
     {% endfor %}
 </body>
 </html>
