@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{#{% for i in inventory %}#}
+{#{{ i }}#}
+{#{% endfor %}#}
+
+    <h1>List of inventories</h1>
+    {% for i in response %}
+    <strong>
+{#        <a href="{{ i.get_absolute_url }}">{{i.name}}</a> #}
+{#        <li><a href="api/inventory/{{ i.id }}/">{{ i.name }}</a></li>#}
+        <li><a href="{% url 'inventory-detail' i.id %}">{{ i.name }}</a></li>
+        ,</strong>
+    {% endfor %}
+</body>
+</html>
