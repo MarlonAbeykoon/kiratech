@@ -15,6 +15,8 @@ class InventoryListApiView(APIView):
     def get(self, request, *args, **kwargs):
         name = self.request.query_params.get('name', None)
         inventories = Inventory.objects.select_related('supplier').all()
+        if name:
+            inventories = inventories.filter(name=name)
         serializer = InventorySerializer(inventories, many=True)
 
         return Response({"inventories": serializer.data}, status=status.HTTP_200_OK)
