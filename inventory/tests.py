@@ -30,7 +30,7 @@ class InventoryTests(APITestCase):
     @patch('inventory.serializers.InventorySerializer', return_value=[])
     def test_get_inventory_api_returns_200_status_code(self, mock_get_data, mock_serializer):
         """
-        Ensure inventory details API returns a 200 status code.
+        Ensure inventory API returns a 200 status code.
         """
         url = '/api/inventory/'
         response = self.client.get(url)
