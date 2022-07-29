@@ -14,13 +14,16 @@ class InventoryListApiView(APIView):
 
     def get(self, request, *args, **kwargs):
         name = self.request.query_params.get('name', None)
-        inventories = Inventory.objects.select_related('supplier').all()
-        if name:
-            inventories = inventories.filter(name=name)
+        inventories = self.get_data(name)
         serializer = InventorySerializer(inventories, many=True)
 
         return Response({"inventories": serializer.data}, status=status.HTTP_200_OK)
 
+    def get_data(self, name):
+        inventories = Inventory.objects.select_related('supplier').all()
+        if name:
+            inventories = inventories.filter(name=name)
+        return inventories
 
 def getInventories(request):
     inventories = requests.get('http://localhost:8000/api/inventory/').json() # can be taken from a env
@@ -33,5 +36,8 @@ class TodoDetailApiView(viewsets.ModelViewSet):
     serializer_class = InventorySerializer
 
     def get(self, request, id, *args, **kwargs):
-        queryset = Inventory.objects.get(id=id)
+        queryset = self.get_data(id)
         return Response({'response': queryset}, status=status.HTTP_200_OK)
+
+    def get_data(self, id):
+        return Inventory.objects.get(id=id)
