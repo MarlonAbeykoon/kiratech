@@ -5,6 +5,8 @@ Use Python 3.8 with sqllite db
 Execute
 > pip install -r requirement.txt
 > 
+> python manage.py migrate
+> 
 > python manage.py runserver 8080
 > 
 > python manage.py createsuperuser
